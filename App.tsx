@@ -1,3 +1,4 @@
+import axios from "axios";
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
 import {
@@ -22,11 +23,11 @@ export default function App() {
 
   const getBars = async () => {
     try {
-      const response = await fetch(
+      const response = await axios.get(
         "https://stud.hosted.hr.nl/1041379/barData.json"
       );
-      const json = await response.json();
-      setData(json.movies);
+      const json = response.data;
+      setData(json);
     } catch (error) {
       console.error(error);
     } finally {
@@ -38,34 +39,25 @@ export default function App() {
     getBars();
   }, []);
 
-  // show something in a a listview
-
-  const fakeData = [
-    { id: "1", title: "Title Text", description: "Description text" },
-    { id: "2", title: "Text dude", description: "Description text" },
-  ];
-
   return (
-    <SafeAreaView className="justify-center flex-1 bg-white ">
-      <View>
+    <SafeAreaView className="justify-center flex-1 bg-white">
+      <View className="p-4">
         {isLoading ? (
           <ActivityIndicator />
         ) : (
           <FlatList
-            data={fakeData}
-            keyExtractor={(item) => item.id}
+            data={data}
+            keyExtractor={(item) => item.title}
             renderItem={({ item }) => (
-              <Text>
-                {item.title}, {item.description}
-              </Text>
+              <>
+                <Text className="font-bold">{item.title}</Text>
+                <Text className="pb-4">{item.description}</Text>
+              </>
             )}
           />
         )}
       </View>
-      <View>
-        <Text className="text-white">Lil john a milli</Text>
-        <Text className="p-4 mt-4 bg-red-800">Thing</Text>
-      </View>
+
       <StatusBar style="auto" />
     </SafeAreaView>
   );
