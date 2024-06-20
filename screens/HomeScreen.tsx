@@ -10,8 +10,9 @@ import {
   SafeAreaView,
 } from "react-native";
 import useFetch, { Bar } from "../hooks/useFetch";
+import { HomeScreenProps } from "../navigation/types";
 
-function Home() {
+function HomeScreen({ navigation }: HomeScreenProps) {
   const { data, isLoading } = useFetch();
 
   return (
@@ -31,6 +32,10 @@ function Home() {
             )}
           />
         )}
+        <Button
+          title="Go to Details"
+          onPress={() => navigation.navigate("Detail")}
+        />
       </View>
 
       <StatusBar style="auto" />
@@ -38,4 +43,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default HomeScreen;
