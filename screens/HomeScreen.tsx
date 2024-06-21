@@ -9,7 +9,7 @@ import {
   View,
   SafeAreaView,
 } from "react-native";
-import useFetch, { Bar } from "../hooks/useFetch";
+import useFetch from "../hooks/useFetch";
 import { HomeScreenProps } from "../navigation/types";
 
 function HomeScreen({ navigation }: HomeScreenProps) {
