@@ -1,11 +1,14 @@
-import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { NavigationContainer } from "@react-navigation/native";
+
+import { StackParamList } from "./navigation/types";
+
 import DetailsScreen from "./screens/DetailsScreen";
 import HomeScreen from "./screens/HomeScreen";
-import { StackParamList } from "./navigation/types";
+import SettingsScreen from "./screens/SettingsScreen";
+
 import LogoTitle from "./components/LogoTitle";
 import { Button } from "react-native";
-import { HeaderButtonProps } from "@react-navigation/native-stack/lib/typescript/src/types";
 
 const Stack = createNativeStackNavigator<StackParamList>();
 
@@ -16,12 +19,12 @@ export default function App() {
         <Stack.Screen
           name="Home"
           component={HomeScreen}
-          options={{
+          options={({ navigation }) => ({
             headerTitle: (props) => <LogoTitle {...props} />,
             headerRight: () => (
               <Button
-                onPress={() => alert("This is a button!")}
-                title="Info"
+                onPress={() => navigation.navigate("Settings")}
+                title="Settings"
                 color="#fff"
               />
             ),
@@ -32,9 +35,10 @@ export default function App() {
             headerTitleStyle: {
               fontWeight: "bold",
             },
-          }}
+          })}
         />
         <Stack.Screen name="Detail" component={DetailsScreen} />
+        <Stack.Screen name="Settings" component={SettingsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
