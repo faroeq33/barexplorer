@@ -1,22 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { StatusBar } from "expo-status-bar";
 
-import {
-  ActivityIndicator,
-  Button,
-  FlatList,
-  Text,
-  View,
-  SafeAreaView,
-} from "react-native";
+import { ActivityIndicator, FlatList, View, SafeAreaView } from "react-native";
 import useFetch from "../hooks/useFetch";
 import { HomeScreenProps } from "../navigation/types";
+import MyText from "../components/typography/MyText";
+import MyButton from "../components/buttons/MyButton";
 
 function HomeScreen({ navigation }: HomeScreenProps) {
   const { data, isLoading } = useFetch();
 
   return (
-    <SafeAreaView className="justify-center flex-1 bg-white">
+    <SafeAreaView className="justify-center flex-1 light:bg-white dark:bg-slate-600">
       <View className="p-4">
         {isLoading ? (
           <ActivityIndicator />
@@ -26,13 +21,13 @@ function HomeScreen({ navigation }: HomeScreenProps) {
             keyExtractor={(item) => item.title}
             renderItem={({ item }) => (
               <>
-                <Text className="font-bold">{item.title}</Text>
-                <Text className="pb-4">{item.description}</Text>
+                <MyText>{item.title}</MyText>
+                <MyText>{item.description}</MyText>
               </>
             )}
           />
         )}
-        <Button
+        <MyButton
           title="Go to Details"
           onPress={() => navigation.navigate("Detail")}
         />

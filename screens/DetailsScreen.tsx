@@ -1,20 +1,24 @@
-import { View, Text, Button } from "react-native";
+import { View, Text } from "react-native";
 import { DetailScreenProps } from "../navigation/types";
+import MyButton from "../components/buttons/MyButton";
 
 function DetailsScreen({ navigation }: DetailScreenProps) {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Text>Details Screen</Text>
-      <Button
+      <MyButton
         title="Go to detail again"
         onPress={() => navigation.push("Detail")}
-      ></Button>
-      <Button title="Go to Home" onPress={() => navigation.navigate("Home")} />
-      <Button title="Terug" onPress={() => navigation.goBack()} />
-      <Button
+      ></MyButton>
+      <MyButton
+        title="Go to Home"
+        onPress={() => navigation.navigate("Home")}
+      />
+      <MyButton title="Terug" onPress={() => navigation.goBack()} />
+      <MyButton
         title="Go back to first screen in stack"
         onPress={() => navigation.popToTop()}
-      ></Button>
+      ></MyButton>
     </View>
   );
 }

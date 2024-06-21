@@ -1,31 +1,22 @@
-import { View, Button } from "react-native";
+import { Button } from "react-native";
 import { SettingsScreenProps } from "../navigation/types";
 import MyTitle from "../components/typography/MyTitle";
-import { useTheme } from "@react-navigation/native";
+import Container from "../components/misc/Container";
+import MyText from "../components/typography/MyText";
+import { useThemeContext } from "../context/ThemeContext";
+import { useColorScheme } from "nativewind";
 
 function SettingsScreen({ navigation }: SettingsScreenProps) {
-  const { colors } = useTheme();
+  const { theme, toggleTheme } = useThemeContext();
+
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
+    <Container>
       <MyTitle>Details Screen</MyTitle>
 
-      <Button
-        title="Go to detail again"
-        onPress={() => navigation.push("Detail")}
-      ></Button>
-      <Button title="Go to Home" onPress={() => navigation.navigate("Home")} />
+      <Button onPress={toggleTheme} title="Toggle Theme" />
+      <MyText>Current Theme: {theme}</MyText>
       <Button title="Terug" onPress={() => navigation.goBack()} />
-      <Button
-        title="Go back to first screen in stack"
-        onPress={() => navigation.popToTop()}
-      ></Button>
-    </View>
+    </Container>
   );
 }
 export default SettingsScreen;
