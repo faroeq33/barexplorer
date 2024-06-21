@@ -15,6 +15,7 @@ type ContextType = {
   // setTheme: (theme: string) => void;
   toggleTheme: () => void;
   color: string;
+  isDarkMode: () => boolean;
 };
 
 export const ThemeContext = createContext<ContextType | undefined>(undefined);
@@ -24,6 +25,10 @@ export const ThemeProvider = (props: PropsWithChildren<{}>) => {
 
   const getTheme = () => {
     return theme;
+  };
+
+  const isDarkMode = () => {
+    return theme === "dark";
   };
 
   const toggleTheme = () => {
@@ -74,7 +79,9 @@ export const ThemeProvider = (props: PropsWithChildren<{}>) => {
   const color = theme === "dark" ? "text-slate-200" : "text-slate-800";
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme, getTheme, color }}>
+    <ThemeContext.Provider
+      value={{ theme, toggleTheme, getTheme, color, isDarkMode }}
+    >
       {props.children}
     </ThemeContext.Provider>
   );
