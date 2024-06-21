@@ -1,11 +1,12 @@
 import { View, Text } from "react-native";
 import { DetailScreenProps } from "../navigation/types";
 import MyButton from "../components/buttons/MyButton";
+import MyTitle from "../components/typography/MyTitle";
 
 function DetailsScreen({ navigation }: DetailScreenProps) {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Details Screen</Text>
+      <MyTitle>Details Screen</MyTitle>
       <MyButton
         title="Go to detail again"
         onPress={() => navigation.push("Detail")}

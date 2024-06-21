@@ -3,12 +3,13 @@ import { Text, TextProps } from "react-native";
 import { useThemeContext } from "../../context/ThemeContext";
 
 function MyText(props: TextProps) {
-  const { getTheme } = useThemeContext();
+  const { getTheme, color } = useThemeContext();
   return (
     <Text
-      style={{
-        color: getTheme() === "dark" ? styles.text.dark : styles.text.light,
-      }}
+      className={`${color}`}
+      // style={{
+      //   color: getTheme() === "dark" ? styles.text.dark : styles.text.light,
+      // }}
     >
       {props.children}
     </Text>
