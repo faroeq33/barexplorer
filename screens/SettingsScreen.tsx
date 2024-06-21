@@ -1,10 +1,18 @@
-import { View, Text, Button } from "react-native";
+import { View, Button } from "react-native";
 import { SettingsScreenProps } from "../navigation/types";
 import MyTitle from "../components/typography/MyTitle";
+import { useTheme } from "@react-navigation/native";
 
-export default function SettingsScreen({ navigation }: SettingsScreenProps) {
+function SettingsScreen({ navigation }: SettingsScreenProps) {
+  const { colors } = useTheme();
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+    <View
+      style={{
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
       <MyTitle>Details Screen</MyTitle>
 
       <Button
@@ -20,3 +28,4 @@ export default function SettingsScreen({ navigation }: SettingsScreenProps) {
     </View>
   );
 }
+export default SettingsScreen;

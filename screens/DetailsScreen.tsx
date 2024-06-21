@@ -1,7 +1,7 @@
 import { View, Text, Button } from "react-native";
 import { DetailScreenProps } from "../navigation/types";
 
-export default function DetailsScreen({ navigation }: DetailScreenProps) {
+function DetailsScreen({ navigation }: DetailScreenProps) {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Text>Details Screen</Text>
@@ -18,3 +18,4 @@ export default function DetailsScreen({ navigation }: DetailScreenProps) {
     </View>
   );
 }
+export default DetailsScreen;

@@ -12,7 +12,7 @@ import { Button } from "react-native";
 
 const Stack = createNativeStackNavigator<StackParamList>();
 
-export default function App() {
+function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
@@ -43,3 +43,4 @@ export default function App() {
     </NavigationContainer>
   );
 }
+export default App;

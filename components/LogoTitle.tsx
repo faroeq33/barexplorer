@@ -5,7 +5,7 @@ type Props = {
   children?: React.ReactNode;
 };
 
-export default function LogoTitle(props: Props) {
+function LogoTitle(props: Props) {
   return (
     <>
       <Image
@@ -15,3 +15,4 @@ export default function LogoTitle(props: Props) {
     </>
   );
 }
+export default LogoTitle;
