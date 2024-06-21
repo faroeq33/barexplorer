@@ -1,8 +1,12 @@
-import React from "react";
-import { View, Text } from "react-native";
+import React, { PropsWithChildren } from "react";
+import { Text } from "react-native";
 
-function MyTitle(props: { children?: string }) {
-  return <Text className="text-lg font-bold">{props.children}</Text>;
+function MyTitle(props: PropsWithChildren<{}>) {
+  return (
+    <Text className="text-xl font-extrabold text-slate-800 dark:text-slate-200">
+      {props.children}
+    </Text>
+  );
 }
 
 export default MyTitle;
