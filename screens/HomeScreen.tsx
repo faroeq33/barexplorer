@@ -18,9 +18,6 @@ function HomeScreen({ navigation }: HomeScreenProps) {
   const { data, isLoading } = useFetch();
   const [isMap, setisMap] = useState<boolean>(false);
 
-  // const onRegionChange = (region) =>{
-  //   setState({ region });
-  // }
   return (
     <SafeAreaView className="justify-center flex-1 light:bg-white dark:bg-slate-600">
       <View className="p-4">
