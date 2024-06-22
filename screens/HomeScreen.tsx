@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 
 import {
@@ -8,16 +8,19 @@ import {
   SafeAreaView,
   StyleSheet,
 } from "react-native";
-import useFetch from "../hooks/useFetch";
+import useFetch, { Bar } from "../hooks/useFetch";
 import { HomeScreenProps } from "../navigation/types";
 import MyText from "../components/typography/MyText";
 import MyButton from "../components/buttons/MyButton";
-import MapView from "react-native-maps";
+import MapView, { Marker, Region } from "react-native-maps";
 
 function HomeScreen({ navigation }: HomeScreenProps) {
   const { data, isLoading } = useFetch();
   const [isMap, setisMap] = useState<boolean>(false);
 
+  // const onRegionChange = (region) =>{
+  //   setState({ region });
+  // }
   return (
     <SafeAreaView className="justify-center flex-1 light:bg-white dark:bg-slate-600">
       <View className="p-4">
@@ -25,7 +28,7 @@ function HomeScreen({ navigation }: HomeScreenProps) {
 
         {/* toggle between map or list view*/}
         {isMap ? (
-          <MapView style={styles.map} />
+          <MyMapView data={data} />
         ) : (
           <FlatList
             data={data}
@@ -51,6 +54,46 @@ function HomeScreen({ navigation }: HomeScreenProps) {
     </SafeAreaView>
   );
 }
+
+const MyMapView = (props: { data: Bar[] }) => {
+  const getInitialState = () => {
+    return {
+      region: {
+        latitude: 51.9244,
+        longitude: 4.4777,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+      },
+    };
+  };
+
+  const [mapState, setMapState] = useState(getInitialState());
+
+  const onRegionchange = (region: Region) => {
+    setMapState({ region });
+  };
+
+  return (
+    <MapView
+      style={styles.map}
+      initialRegion={getInitialState().region}
+      region={mapState.region}
+      onRegionChangeComplete={onRegionchange}
+    >
+      {props.data.map((marker, index) => (
+        <Marker
+          key={index}
+          coordinate={{
+            latitude: marker.latitude,
+            longitude: marker.longitude,
+          }}
+          title={marker.title}
+          description={marker.description}
+        />
+      ))}
+    </MapView>
+  );
+};
 
 const styles = StyleSheet.create({
   map: {
