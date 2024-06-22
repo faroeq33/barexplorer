@@ -1,5 +1,5 @@
 import { Button } from "react-native";
-import { SettingsScreenProps } from "../../navigation/types";
+import { SettingsScreenProps } from "../../types/types";
 
 function SettingsButton({ navigation }: SettingsScreenProps) {
   return (

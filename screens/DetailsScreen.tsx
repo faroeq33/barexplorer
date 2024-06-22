@@ -1,13 +1,42 @@
-import { View, Text } from "react-native";
-import { DetailScreenProps } from "../navigation/types";
+import { View, Text, ScrollView } from "react-native";
+import { Bar, DetailScreenProps } from "../types/types";
 import MyButton from "../components/buttons/MyButton";
 import MyTitle from "../components/typography/MyTitle";
+import MyText from "../components/typography/MyText";
+import MyHeading from "../components/typography/MyHeading";
+import MyAsyncStorage from "../utils/MyAsyncStorage";
+import { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 
-function DetailsScreen({ navigation }: DetailScreenProps) {
+function DetailsScreen({ route }: DetailScreenProps) {
+  const navigation = useNavigation();
+  const [saved, setSaved] = useState<Bar[]>([]);
+  const { item } = route.params;
+
+  const saveHotSpot = async (item: Bar) => {
+    await MyAsyncStorage.save("saved", item).then(() => {
+      setSaved([...saved, item]);
+      console.log("item saved", item);
+    });
+  };
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <MyTitle>Details Screen</MyTitle>
-      <MyButton
+
+      <View>
+        <MyHeading>{item.title}</MyHeading>
+        <MyText>{item.description}</MyText>
+
+        <MyButton title="Opslaan" onPress={() => saveHotSpot(item)} />
+
+        {/*Nog favorieten implementern */}
+        <MyButton
+          title="Mijn favorieten"
+          onPress={() => navigation.navigate("Favorites")}
+        />
+      </View>
+
+      {/* <MyButton
         title="Go to detail again"
         onPress={() => navigation.push("Detail")}
       ></MyButton>
@@ -19,7 +48,7 @@ function DetailsScreen({ navigation }: DetailScreenProps) {
       <MyButton
         title="Go back to first screen in stack"
         onPress={() => navigation.popToTop()}
-      ></MyButton>
+      ></MyButton> */}
     </View>
   );
 }

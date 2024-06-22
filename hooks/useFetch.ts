@@ -1,12 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-
-export type Bar = {
-  title: string;
-  description: string;
-  latitude: number;
-  longitude: number;
-};
+import { Bar } from "../types/types";
 
 function useFetch() {
   const [isLoading, setLoading] = useState(true);

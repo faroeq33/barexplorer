@@ -1,30 +1,11 @@
-import { Button, FlatList, ScrollView, Switch, View } from "react-native";
-import { SettingsScreenProps } from "../navigation/types";
-import MyTitle from "../components/typography/MyTitle";
+import { Button, FlatList, Switch, View } from "react-native";
+import { SettingsScreenProps } from "../types/types";
 import MyText from "../components/typography/MyText";
 import { useThemeContext } from "../context/ThemeContext";
 import MyHeading from "../components/typography/MyHeading";
-import { Bar } from "../hooks/useFetch";
-import { useEffect, useState } from "react";
-import MyAsyncStorage from "../utils/MyAsyncStorage";
 
 function SettingsScreen({ navigation }: SettingsScreenProps) {
   const { theme, toggleTheme, isDarkMode } = useThemeContext();
-  const [saved, setSaved] = useState<Bar[]>([]);
-
-  const getSavedHotSpots = async () => {
-    const savedHotSpots = await MyAsyncStorage.get("saved");
-
-    setSaved(savedHotSpots);
-
-    console.log("async storage theme =", theme);
-
-    console.log("current theme from async storage =", theme);
-  };
-
-  useEffect(() => {
-    getSavedHotSpots();
-  }, []);
 
   return (
     <View>
@@ -38,16 +19,6 @@ function SettingsScreen({ navigation }: SettingsScreenProps) {
         value={isDarkMode()}
       />
       <Button title="Terug" onPress={() => navigation.goBack()} />
-
-      {/*Geef lokaal opgeslagen info weer*/}
-      <View>
-        <MyTitle>My Saved Hotspots</MyTitle>
-        <FlatList
-          data={saved}
-          keyExtractor={(item) => item.title}
-          renderItem={({ item }) => <MyText>{item.title}</MyText>}
-        />
-      </View>
     </View>
   );
 }
