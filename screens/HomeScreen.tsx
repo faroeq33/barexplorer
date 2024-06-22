@@ -144,7 +144,7 @@ function HomeScreen({ navigation }: HomeScreenProps) {
         )}
 
         <MyButton
-          title="Toggle View"
+          title="Bekijk op de kaart"
           onPress={() => {
             setisMap((isMap) => !isMap);
           }}

@@ -19,7 +19,7 @@ function DetailsScreen({ route }: DetailScreenProps) {
       {isMap ? <MyMapView data={[item]} /> : <DetailItem item={item} />}
 
       <MyButton
-        title="Toggle View"
+        title="Bekijk op de kaart"
         onPress={() => {
           setisMap((isMap) => !isMap);
         }}
