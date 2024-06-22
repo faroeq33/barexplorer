@@ -30,10 +30,6 @@ function DetailsScreen({ route }: DetailScreenProps) {
         <MyButton title="Opslaan" onPress={() => saveHotSpot(item)} />
 
         {/*Nog favorieten implementern */}
-        <MyButton
-          title="Mijn favorieten"
-          onPress={() => navigation.navigate("Favorites")}
-        />
       </View>
 
       {/* <MyButton

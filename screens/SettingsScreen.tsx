@@ -1,4 +1,4 @@
-import { Button, FlatList, Switch, View } from "react-native";
+import { Button, Switch, View } from "react-native";
 import { SettingsScreenProps } from "../types/types";
 import MyText from "../components/typography/MyText";
 import { useThemeContext } from "../context/ThemeContext";
