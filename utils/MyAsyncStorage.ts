@@ -33,8 +33,18 @@ export const get = async (key: StorageProps["key"]) => {
   }
 };
 
+export const remove = async (key: StorageProps["key"]) => {
+  try {
+    await AsyncStorage.removeItem(key);
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
+
 export default {
   saveString,
   save,
   get,
+  remove,
 };

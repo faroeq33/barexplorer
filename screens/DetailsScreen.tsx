@@ -10,15 +10,8 @@ import { useNavigation } from "@react-navigation/native";
 
 function DetailsScreen({ route }: DetailScreenProps) {
   const navigation = useNavigation();
-  const [saved, setSaved] = useState<Bar[]>([]);
   const { item } = route.params;
 
-  const saveHotSpot = async (item: Bar) => {
-    await MyAsyncStorage.save("saved", item).then(() => {
-      setSaved([...saved, item]);
-      console.log("item saved", item);
-    });
-  };
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <MyTitle>Details Screen</MyTitle>
@@ -26,8 +19,6 @@ function DetailsScreen({ route }: DetailScreenProps) {
       <View>
         <MyHeading>{item.title}</MyHeading>
         <MyText>{item.description}</MyText>
-
-        <MyButton title="Opslaan" onPress={() => saveHotSpot(item)} />
 
         {/*Nog favorieten implementern */}
       </View>
