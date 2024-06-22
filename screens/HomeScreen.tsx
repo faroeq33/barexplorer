@@ -51,10 +51,29 @@ function HomeScreen({ navigation }: HomeScreenProps) {
     }
   };
 
+  const removeHotSpot = async (item: Bar) => {
+    const updatedItem = saved.filter((hotSpot) => hotSpot.title !== item.title);
+
+    const removedHotSpot = await MyAsyncStorage.save("saved", updatedItem);
+
+    // console.log("removed hotspots", removedHotSpot);
+    if (removedHotSpot) {
+      setSaved(updatedItem);
+      // console.log("item removed", item);
+    }
+  };
+
   const isTitleInArray = (array: Bar[], title: Bar["title"]) => {
     return array.some((el: Bar) => el.title === title);
   };
 
+  const toggleSaved = (item: Bar) => {
+    if (isTitleInArray(saved, item.title)) {
+      removeHotSpot(item);
+    } else {
+      saveHotSpot(item);
+    }
+  };
   return (
     <SafeAreaView
       className={`${
@@ -75,11 +94,7 @@ function HomeScreen({ navigation }: HomeScreenProps) {
 
               return (
                 <>
-                  <Pressable
-                    onPress={() => {
-                      saveHotSpot(item);
-                    }}
-                  >
+                  <Pressable onPress={toggleSaved.bind(null, item)}>
                     <MyText style={{ lineHeight: 6 }}>
                       <Ionicons
                         name={
