@@ -14,9 +14,9 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { Bar, HomeScreenProps } from "../types/types";
 import MyText from "../components/typography/MyText";
 import MyButton from "../components/buttons/MyButton";
-import MapView, { Marker, Region } from "react-native-maps";
 import MyHeading from "../components/typography/MyHeading";
-import MyAsyncStorage, { save } from "../utils/MyAsyncStorage";
+import MyAsyncStorage from "../utils/MyAsyncStorage";
+import { MyMapView } from "../components/map/MyMapView";
 
 function HomeScreen({ navigation }: HomeScreenProps) {
   const { data, isLoading } = useFetch();
@@ -135,52 +135,5 @@ function HomeScreen({ navigation }: HomeScreenProps) {
     </SafeAreaView>
   );
 }
-
-const MyMapView = (props: { data: Bar[] }) => {
-  const getInitialState = () => {
-    return {
-      region: {
-        latitude: 51.9244,
-        longitude: 4.4777,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
-      },
-    };
-  };
-
-  const [mapState, setMapState] = useState(getInitialState());
-
-  const onRegionchange = (region: Region) => {
-    setMapState({ region });
-  };
-
-  return (
-    <MapView
-      style={styles.map}
-      initialRegion={getInitialState().region}
-      region={mapState.region}
-      onRegionChangeComplete={onRegionchange}
-    >
-      {props.data.map((marker, index) => (
-        <Marker
-          key={index}
-          coordinate={{
-            latitude: marker.latitude,
-            longitude: marker.longitude,
-          }}
-          title={marker.title}
-          description={marker.description}
-        />
-      ))}
-    </MapView>
-  );
-};
-
-const styles = StyleSheet.create({
-  map: {
-    width: "100%",
-    height: "90%",
-  },
-});
 
 export default HomeScreen;

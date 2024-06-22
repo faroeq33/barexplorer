@@ -1,27 +1,24 @@
-import { View, Text, ScrollView } from "react-native";
+import { View } from "react-native";
 import { Bar, DetailScreenProps } from "../types/types";
-import MyButton from "../components/buttons/MyButton";
 import MyTitle from "../components/typography/MyTitle";
 import MyText from "../components/typography/MyText";
 import MyHeading from "../components/typography/MyHeading";
-import MyAsyncStorage from "../utils/MyAsyncStorage";
-import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
+import { useState } from "react";
+import MyButton from "../components/buttons/MyButton";
+import { MyMapView } from "../components/map/MyMapView";
 
 function DetailsScreen({ route }: DetailScreenProps) {
+  const [isMap, setisMap] = useState<boolean>(false);
+
   const navigation = useNavigation();
   const { item } = route.params;
 
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <MyTitle>Details Screen</MyTitle>
+      <MyTitle>{isMap ? item.title : ""}</MyTitle>
 
-      <View>
-        <MyHeading>{item.title}</MyHeading>
-        <MyText>{item.description}</MyText>
-
-        {/*Nog favorieten implementern */}
-      </View>
+      {isMap ? <MyMapView data={[item]} /> : <DetailItem item={item} />}
 
       {/* <MyButton
         title="Go to detail again"
@@ -36,7 +33,25 @@ function DetailsScreen({ route }: DetailScreenProps) {
         title="Go back to first screen in stack"
         onPress={() => navigation.popToTop()}
       ></MyButton> */}
+      <MyButton
+        title="Toggle View"
+        onPress={() => {
+          setisMap((isMap) => !isMap);
+        }}
+      />
     </View>
   );
 }
+
+function DetailItem(props: { item: Bar }) {
+  return (
+    <View>
+      <MyHeading>{props.item.title}</MyHeading>
+      <MyText>{props.item.description}</MyText>
+
+      {/*Nog favorieten implementern */}
+    </View>
+  );
+}
+
 export default DetailsScreen;
