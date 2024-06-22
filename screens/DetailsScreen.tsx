@@ -3,7 +3,6 @@ import { Bar, DetailScreenProps } from "../types/types";
 import MyTitle from "../components/typography/MyTitle";
 import MyText from "../components/typography/MyText";
 import MyHeading from "../components/typography/MyHeading";
-import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import MyButton from "../components/buttons/MyButton";
 import { MyMapView } from "../components/map/MyMapView";
@@ -11,7 +10,6 @@ import { MyMapView } from "../components/map/MyMapView";
 function DetailsScreen({ route }: DetailScreenProps) {
   const [isMap, setisMap] = useState<boolean>(false);
 
-  const navigation = useNavigation();
   const { item } = route.params;
 
   return (
