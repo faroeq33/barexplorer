@@ -3,9 +3,11 @@ import { Bar } from "../../types/types";
 import { useState } from "react";
 import { StyleSheet } from "react-native";
 import useLocation from "../../hooks/useLocation";
-import MyText from "../typography/MyText";
+import { useThemeContext } from "../../context/ThemeContext";
 
 export const MyMapView = (props: { data: Bar[] }) => {
+  const { theme } = useThemeContext();
+
   const { location } = useLocation();
 
   //   console.log(console.log(JSON.stringify({ location }, null, 2)));
@@ -43,6 +45,7 @@ export const MyMapView = (props: { data: Bar[] }) => {
         onRegionChangeComplete={onRegionchange}
         showsUserLocation={true}
         showsMyLocationButton={true}
+        userInterfaceStyle={theme as "light" | "dark"}
       >
         {props.data.map((marker, index) => (
           <Marker

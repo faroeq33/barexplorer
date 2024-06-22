@@ -1,15 +1,12 @@
-import { Button, ScrollView, Switch, View } from "react-native";
+import { Switch, View } from "react-native";
 import { SettingsScreenProps } from "../types/types";
 import MyText from "../components/typography/MyText";
 import { useThemeContext } from "../context/ThemeContext";
 import MyHeading from "../components/typography/MyHeading";
-import { Themes } from "../config/Theme";
 
 function SettingsScreen({ navigation }: SettingsScreenProps) {
   const { theme, toggleTheme, isDarkMode, colors } = useThemeContext();
   const screenTheme = { mode: theme };
-
-  let activeColors = colors[screenTheme.mode as "dark" | "light"];
 
   return (
     <View
