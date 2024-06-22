@@ -6,15 +6,17 @@ import {
   useEffect,
   useState,
 } from "react";
-import MyAsyncStorage from "../utils/MyAsyncStorage";
+import MyAsyncStorage from "../config/MyAsyncStorage";
 import { useColorScheme } from "react-native";
+import { Theme, Themes, Variant } from "../config/Theme";
 
 type ContextType = {
   theme: string;
   getTheme: () => string;
   // setTheme: (theme: string) => void;
   toggleTheme: () => void;
-  color: string;
+  colors: Theme;
+  activeColors: Variant;
   isDarkMode: () => boolean;
 };
 
@@ -76,11 +78,18 @@ export const ThemeProvider = (props: PropsWithChildren<{}>) => {
     getThemeFromStorage();
   }, []);
 
-  const color = theme === "dark" ? "text-slate-200" : "text-slate-800";
+  const colors: Theme = Themes.theme3;
 
   return (
     <ThemeContext.Provider
-      value={{ theme, toggleTheme, getTheme, color, isDarkMode }}
+      value={{
+        theme,
+        toggleTheme,
+        getTheme,
+        colors,
+        isDarkMode,
+        activeColors: colors[theme as "dark" | "light"],
+      }}
     >
       {props.children}
     </ThemeContext.Provider>

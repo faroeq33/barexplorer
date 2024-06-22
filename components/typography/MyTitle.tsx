@@ -3,9 +3,16 @@ import { Text } from "react-native";
 import { useThemeContext } from "../../context/ThemeContext";
 
 function MyTitle(props: PropsWithChildren<{}>) {
-  const { color } = useThemeContext();
+  const { theme, colors } = useThemeContext();
+  let activeColors = colors[theme as "dark" | "light"];
+
   return (
-    <Text className={`text-xl font-extrabold ${color}`}>{props.children}</Text>
+    <Text
+      className="text-xl font-extrabold"
+      style={{ color: activeColors.tint }}
+    >
+      {props.children}
+    </Text>
   );
 }
 

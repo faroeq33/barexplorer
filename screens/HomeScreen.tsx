@@ -8,6 +8,7 @@ import {
   SafeAreaView,
   StyleSheet,
   Pressable,
+  Button,
 } from "react-native";
 import useFetch from "../hooks/useFetch";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -15,10 +16,15 @@ import { Bar, HomeScreenProps } from "../types/types";
 import MyText from "../components/typography/MyText";
 import MyButton from "../components/buttons/MyButton";
 import MyHeading from "../components/typography/MyHeading";
-import MyAsyncStorage from "../utils/MyAsyncStorage";
+import MyAsyncStorage from "../config/MyAsyncStorage";
 import { MyMapView } from "../components/map/MyMapView";
+import { useThemeContext } from "../context/ThemeContext";
+import MyStyledButton from "../components/buttons/MyStyledButton";
 
 function HomeScreen({ navigation }: HomeScreenProps) {
+  const { theme, colors } = useThemeContext();
+  let activeColors = colors[theme as "dark" | "light"];
+
   const { data, isLoading } = useFetch();
   const [isMap, setisMap] = useState<boolean>(false);
 
@@ -36,7 +42,7 @@ function HomeScreen({ navigation }: HomeScreenProps) {
       }
 
       setSaved([...saved, savedHotSpots]);
-      console.log("saved hotspots", savedHotSpots);
+      // console.log("saved hotspots", savedHotSpots);
     };
     loadSavedHotSpots();
   }, []);
@@ -75,13 +81,21 @@ function HomeScreen({ navigation }: HomeScreenProps) {
     }
   };
 
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: activeColors.primary,
+      alignItems: "center",
+      justifyContent: "center",
+    },
+  });
   return (
     <SafeAreaView
       className={`${
         isMap ? "flex-col" : "flex-row"
-      } justify-center flex-1 light:bg-white dark:bg-slate-600`}
+      } justify-center flex-1 light:bg-white `}
     >
-      <View className={isMap ? "p-0" : "p-4"}>
+      <View className={isMap ? "p-0" : "p-4"} style={styles.container}>
         {isLoading ? <ActivityIndicator /> : null}
 
         {isMap ? (
@@ -94,7 +108,12 @@ function HomeScreen({ navigation }: HomeScreenProps) {
               // console.log("Flatlists current item title: ", item.title);
 
               return (
-                <>
+                <View
+                  style={{
+                    paddingBottom: 30,
+                    backgroundColor: activeColors.primary,
+                  }}
+                >
                   <Pressable onPress={toggleSaved.bind(null, item)}>
                     <MyText style={{ lineHeight: 6 }}>
                       <Ionicons
@@ -104,20 +123,21 @@ function HomeScreen({ navigation }: HomeScreenProps) {
                             : "bookmark-outline"
                         }
                         size={24}
-                        color="black"
+                        color={activeColors.accent}
                       />
                     </MyText>
                   </Pressable>
 
                   <MyHeading>{item.title}</MyHeading>
                   <MyText>{item.description}</MyText>
-                  <MyButton
-                    title={`Bekijk ${item.title}`}
+                  <Button
                     onPress={() => {
                       navigation.navigate("Detail", { item });
                     }}
+                    title="Bekijk"
+                    color={activeColors.accent}
                   />
-                </>
+                </View>
               );
             }}
           />
