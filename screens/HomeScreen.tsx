@@ -25,7 +25,7 @@ function HomeScreen({ navigation }: HomeScreenProps) {
   const [saved, setSaved] = useState<Bar[]>([]);
 
   useEffect(() => {
-    // The loadSavedHotSpots get the saved hotspots from users device, only on first render
+    // The loadSavedHotSpots gets saved hotspots from users device, only on first render
 
     const loadSavedHotSpots = async () => {
       const savedHotSpots = await MyAsyncStorage.get("saved");
@@ -74,6 +74,7 @@ function HomeScreen({ navigation }: HomeScreenProps) {
       saveHotSpot(item);
     }
   };
+
   return (
     <SafeAreaView
       className={`${
