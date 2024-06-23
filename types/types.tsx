@@ -4,8 +4,13 @@ export type StackParamList = {
   Home: undefined;
   Detail: { item: Bar };
   Settings: undefined;
+  BarsList: undefined;
 };
 
+export type BarsListScreenProps = NativeStackScreenProps<
+  StackParamList,
+  "BarsList"
+>;
 export type HomeScreenProps = NativeStackScreenProps<StackParamList, "Home">;
 
 export type DetailScreenProps = NativeStackScreenProps<

@@ -6,13 +6,11 @@ function MyText(props: TextProps) {
   const { theme, colors } = useThemeContext();
   let activeColors = colors[theme as "dark" | "light"];
 
-  return <Text style={{ color: activeColors.tint }}>{props.children}</Text>;
+  return (
+    <Text style={{ color: activeColors.tint }} {...props}>
+      {props.children}
+    </Text>
+  );
 }
 
-const styles = {
-  text: {
-    dark: "white",
-    light: "black",
-  },
-};
 export default MyText;

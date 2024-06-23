@@ -11,6 +11,8 @@ import { ThemeProvider } from "./context/ThemeContext";
 import MyNavigationContainer from "./context/MyNavigationContainer";
 import MyStyledButton from "./components/buttons/MyStyledButton";
 import MyText from "./components/typography/MyText";
+import BarsListScreen from "./screens/BarsListScreen";
+import MyButton from "./components/buttons/MyButton";
 
 const Stack = createNativeStackNavigator<StackParamList>();
 
@@ -25,12 +27,14 @@ function App(): JSX.Element {
             options={({ navigation }) => ({
               headerTitle: (props) => <LogoTitle {...props} />,
               headerRight: () => (
-                <MyStyledButton onPress={() => navigation.navigate("Settings")}>
-                  <MyText>Settings</MyText>
-                </MyStyledButton>
+                <MyButton
+                  title="Settings"
+                  onPress={() => navigation.navigate("Settings")}
+                />
               ),
             })}
           />
+          <Stack.Screen name="BarsList" component={BarsListScreen} />
           <Stack.Screen name="Detail" component={DetailsScreen} />
           <Stack.Screen name="Settings" component={SettingsScreen} />
         </Stack.Navigator>

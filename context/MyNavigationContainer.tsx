@@ -7,11 +7,12 @@ import { PropsWithChildren } from "react";
 import { useThemeContext } from "./ThemeContext";
 
 function MyNavigationContainer(props: PropsWithChildren<{}>) {
-  const { getTheme } = useThemeContext();
-  const theme = getTheme() === "dark" ? DarkTheme : DefaultTheme;
+  const { getTheme, colors } = useThemeContext();
+  let activeColors = colors[getTheme() as "dark" | "light"];
+  const myTheme = getTheme() === "dark" ? DarkTheme : DefaultTheme;
 
   return (
-    <NavigationContainer theme={theme}>{props.children}</NavigationContainer>
+    <NavigationContainer theme={myTheme}>{props.children}</NavigationContainer>
   );
 }
 

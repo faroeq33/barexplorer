@@ -6,8 +6,11 @@ import MyHeading from "../components/typography/MyHeading";
 import { useState } from "react";
 import MyButton from "../components/buttons/MyButton";
 import { MyMapView } from "../components/map/MyMapView";
+import { useThemeContext } from "../context/ThemeContext";
 
 function DetailsScreen({ route }: DetailScreenProps) {
+  const { theme, colors } = useThemeContext();
+  let activeColors = colors[theme as "dark" | "light"];
   const [isMap, setisMap] = useState<boolean>(false);
 
   const { item } = route.params;

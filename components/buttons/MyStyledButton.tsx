@@ -15,7 +15,7 @@ function MyStyledButton(props: PressableProps & { title?: string }) {
     <Pressable
       style={{
         marginTop: 10,
-        padding: 10,
+        padding: 5,
         backgroundColor: activeColors.tertiary,
         borderRadius: 3,
       }}
