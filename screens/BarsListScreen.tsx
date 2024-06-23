@@ -31,39 +31,53 @@ function BarsListScreen({ navigation }: BarsListScreenProps) {
 
   useEffect(() => {
     // The loadSavedHotSpots gets saved hotspots from users device, only on first render
-
     const loadSavedHotSpots = async () => {
+      // await MyAsyncStorage.save("saved", []);
       const savedHotSpots = await MyAsyncStorage.get("saved");
-      // console.log("currently saved hotspots", savedHotSpots);
+      console.log(
+        "currently saved hotspots",
+        JSON.stringify(savedHotSpots, null, 2)
+      );
 
       if (savedHotSpots.length === 0) {
         return console.log("no saved hotspots");
       }
 
-      setSaved([...saved, savedHotSpots]);
+      setSaved([...savedHotSpots]);
       // console.log("saved hotspots", savedHotSpots);
     };
     loadSavedHotSpots();
+    console.log("test initial render");
   }, []);
 
-  const saveHotSpot = async (item: Bar) => {
-    const savedHotSpot = await MyAsyncStorage.save("saved", item);
+  const appendHotSpot = async (item: Bar) => {
+    const savedHotSpot = await MyAsyncStorage.save("saved", [...saved, item]);
 
     // console.log("saved hotspots", savedHotSpot);
     if (savedHotSpot) {
       setSaved([...saved, item]);
-      // console.log("item saved", item);
+      console.log("item saved", saved);
     }
   };
 
   const removeHotSpot = async (item: Bar) => {
     const updatedItem = saved.filter((hotSpot) => hotSpot.title !== item.title);
 
-    const removedHotSpot = await MyAsyncStorage.save("saved", updatedItem);
+    console.log("updated item(s)", JSON.stringify(updatedItem, null, 2));
+    const removedHotSpot = await MyAsyncStorage.save(
+      "saved",
+      JSON.stringify([...saved, updatedItem])
+    );
 
     // console.log("removed hotspots", removedHotSpot);
     if (removedHotSpot) {
       setSaved(updatedItem);
+
+      const savedHotSpots = await MyAsyncStorage.get("saved");
+      console.log(
+        "currently removed hotspots",
+        JSON.stringify(savedHotSpots, null, 2)
+      );
       // console.log("item removed", item);
     }
   };
@@ -76,7 +90,7 @@ function BarsListScreen({ navigation }: BarsListScreenProps) {
     if (isTitleInArray(saved, item.title)) {
       removeHotSpot(item);
     } else {
-      saveHotSpot(item);
+      appendHotSpot(item);
     }
   };
 
@@ -113,7 +127,7 @@ function BarsListScreen({ navigation }: BarsListScreenProps) {
                     backgroundColor: activeColors.primary,
                   }}
                 >
-                  <Pressable onPress={toggleSaved.bind(null, item)}>
+                  <Pressable onPress={() => toggleSaved(item)}>
                     <MyText>
                       <Ionicons
                         name={
