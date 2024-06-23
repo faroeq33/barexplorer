@@ -2,7 +2,7 @@ import { NativeStackScreenProps } from "react-native-screens/lib/typescript/nati
 
 export type StackParamList = {
   Home: undefined;
-  Detail: { item: Bar; options: any };
+  Detail: { item: Bar };
   Settings: undefined;
   BarsList: undefined;
 };

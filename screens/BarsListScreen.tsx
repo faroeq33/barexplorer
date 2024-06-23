@@ -32,31 +32,22 @@ function BarsListScreen({ navigation }: BarsListScreenProps) {
   useEffect(() => {
     // The loadSavedHotSpots gets saved hotspots from users device, only on first render
     const loadSavedHotSpots = async () => {
-      // await MyAsyncStorage.save("saved", []);
       const savedHotSpots = await MyAsyncStorage.get("saved");
-      console.log(
-        "currently saved hotspots",
-        JSON.stringify(savedHotSpots, null, 2)
-      );
 
       if (savedHotSpots.length === 0) {
         return console.log("no saved hotspots");
       }
 
       setSaved([...savedHotSpots]);
-      // console.log("saved hotspots", savedHotSpots);
     };
     loadSavedHotSpots();
-    console.log("test initial render");
   }, []);
 
   const appendHotSpot = async (item: Bar) => {
     const savedHotSpot = await MyAsyncStorage.save("saved", [...saved, item]);
 
-    // console.log("saved hotspots", savedHotSpot);
     if (savedHotSpot) {
       setSaved([...saved, item]);
-      console.log("item saved", saved);
     }
   };
 
@@ -69,7 +60,6 @@ function BarsListScreen({ navigation }: BarsListScreenProps) {
       JSON.stringify([...saved, updatedItem])
     );
 
-    // console.log("removed hotspots", removedHotSpot);
     if (removedHotSpot) {
       setSaved(updatedItem);
 
@@ -78,7 +68,6 @@ function BarsListScreen({ navigation }: BarsListScreenProps) {
         "currently removed hotspots",
         JSON.stringify(savedHotSpots, null, 2)
       );
-      // console.log("item removed", item);
     }
   };
 
@@ -118,8 +107,6 @@ function BarsListScreen({ navigation }: BarsListScreenProps) {
             data={data}
             keyExtractor={(item) => item.title}
             renderItem={({ item }) => {
-              // console.log("Flatlists current item title: ", item.title);
-
               return (
                 <View
                   style={{
