@@ -10,7 +10,7 @@ const colorsTheme1: Theme = {
     primary: "#FFFFFF", // White
     secondary: "#E0E0E0", // Light Gray
     tertiary: "#C0C0C0", // Medium Gray
-    accent: "#FFD700", // Gold
+    accent: "#806c00", // Gold
     tint: "#000000", // Black
   },
 };

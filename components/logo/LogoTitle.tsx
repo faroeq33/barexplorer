@@ -4,6 +4,8 @@ import { useThemeContext } from "../../context/ThemeContext";
 
 type Props = {
   children?: React.ReactNode;
+  height?: number;
+  width?: number;
 };
 
 function LogoTitle(props: Props) {
@@ -14,9 +16,16 @@ function LogoTitle(props: Props) {
       ? require("./logo@dark.png")
       : require("./logo@light.png");
 
+  const styles = {
+    logo: {
+      width: props.width || 25,
+      height: props.height || 25,
+    },
+  };
+
   return (
     <>
-      <Image source={getImage} style={{ width: 25, height: 25 }} />
+      <Image source={getImage} style={styles.logo} />
     </>
   );
 }

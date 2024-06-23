@@ -1,7 +1,7 @@
 import React from "react";
 import { StatusBar } from "expo-status-bar";
 
-import { View, SafeAreaView, StyleSheet } from "react-native";
+import { View, SafeAreaView, StyleSheet, Text } from "react-native";
 import { Bar, HomeScreenProps } from "../types/types";
 import MyText from "../components/typography/MyText";
 import { useThemeContext } from "../context/ThemeContext";
@@ -34,8 +34,11 @@ function HomeScreen({ navigation }: HomeScreenProps) {
   return (
     <SafeAreaView style={styles.safearea}>
       <View style={styles.container}>
-        <MyTitle>
-          <LogoTitle /> BarExplorer
+        <LogoTitle width={30} height={30} />
+        <MyTitle className="italic">
+          <Text style={{ color: activeColors.accent, margin: 20 }}>
+            BarExplorer
+          </Text>
         </MyTitle>
         <MyHeading>Welkom bij BarExplorer!</MyHeading>
         <MyText style={styles.text}>

@@ -78,7 +78,7 @@ export const ThemeProvider = (props: PropsWithChildren<{}>) => {
     getThemeFromStorage();
   }, []);
 
-  const colors: Theme = Themes.theme3;
+  const colors: Theme = Themes.theme2;
 
   return (
     <ThemeContext.Provider

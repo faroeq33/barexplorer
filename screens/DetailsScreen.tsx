@@ -8,7 +8,7 @@ import MyButton from "../components/buttons/MyButton";
 import { MyMapView } from "../components/map/MyMapView";
 import { useThemeContext } from "../context/ThemeContext";
 
-function DetailsScreen({ route }: DetailScreenProps) {
+function DetailsScreen({ route, navigation }: DetailScreenProps) {
   const { theme, colors } = useThemeContext();
   let activeColors = colors[theme as "dark" | "light"];
   const [isMap, setisMap] = useState<boolean>(false);
@@ -24,6 +24,16 @@ function DetailsScreen({ route }: DetailScreenProps) {
       <MyButton
         title="Bekijk op de kaart"
         onPress={() => {
+          navigation.setOptions({
+            //@ts-ignore
+            headerTitle: isMap ? "Details" : "Kaart",
+            headerRight: () => (
+              <MyButton
+                title="Wissel tekst/kaart"
+                onPress={() => setisMap((isMap) => !isMap)}
+              />
+            ),
+          });
           setisMap((isMap) => !isMap);
         }}
       />
