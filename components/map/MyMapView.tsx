@@ -8,6 +8,7 @@ import { useThemeContext } from "../../context/ThemeContext";
 export const MyMapView = (props: { data: Bar[] }) => {
   const { theme } = useThemeContext();
 
+  // Haalt huidige locatie van gebruiker op, tot nu toe niet gebruikt, want MapView heeft al een optie om de locatie van de gebruiker te tonen
   const { location } = useLocation();
 
   //   console.log(console.log(JSON.stringify({ location }, null, 2)));
@@ -17,8 +18,8 @@ export const MyMapView = (props: { data: Bar[] }) => {
       region: {
         latitude: 51.915645718875986,
         longitude: 4.452345839142865,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
+        latitudeDelta: 0.13974365155623047, // Zoom level, zodat je de hele kaart ziet, maar niet te ver uitgezoomd
+        longitudeDelta: 0.12337389260959952, // zelfde als hierboven
       },
     };
   };
@@ -26,6 +27,7 @@ export const MyMapView = (props: { data: Bar[] }) => {
   const [mapState, setMapState] = useState(getInitialState());
 
   const onRegionchange = (region: Region) => {
+    console.log(region);
     setMapState({ region });
   };
 
@@ -45,7 +47,7 @@ export const MyMapView = (props: { data: Bar[] }) => {
         onRegionChangeComplete={onRegionchange}
         showsUserLocation={true}
         showsMyLocationButton={true}
-        userInterfaceStyle={theme as "light" | "dark"}
+        userInterfaceStyle={theme as "light" | "dark"} // Zorgt ervoor dat de kaart donker is als het thema donker is
       >
         {props.data.map((marker, index) => (
           <Marker
