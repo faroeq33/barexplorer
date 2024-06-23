@@ -9,8 +9,6 @@ import SettingsScreen from "./screens/SettingsScreen";
 import LogoTitle from "./components/logo/LogoTitle";
 import { ThemeProvider } from "./context/ThemeContext";
 import MyNavigationContainer from "./context/MyNavigationContainer";
-import MyStyledButton from "./components/buttons/MyStyledButton";
-import MyText from "./components/typography/MyText";
 import BarsListScreen from "./screens/BarsListScreen";
 import MyButton from "./components/buttons/MyButton";
 
